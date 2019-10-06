@@ -1,9 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
 // import ReactDOM from "react-dom";
-import App from "../App";
-import CommentBox from "../CommentBox";
-import CommentList from "../CommentList";
+// did absolute paths vs relative with jsconfig.json
+import App from "components/App";
+import CommentBox from "components/CommentBox";
+import CommentList from "components/CommentList";
 
 // App.js would also work as it is under __tests__ but App.test.js just is more transparent...
 
@@ -17,8 +18,17 @@ import CommentList from "../CommentList";
 
 // CRA installed a dependency called JSDOM
 // JSDOM: js implementation of how browser works...
+
+// put common setup logic here...
+// cool scoping trick...
+let wrapped;
+// beforeEach will only run before each of these it blocks
+beforeEach(() => {
+  wrapped = shallow(<App />);
+});
+
 it("shows a comment box", () => {
-  const wrapped = shallow(<App />);
+  // const wrapped = shallow(<App />);
   // wrapped version of our App component;
   // it has add'l functions loaded onto the top...
   // sort of like connect()() in redux
@@ -49,6 +59,6 @@ it("shows a comment box", () => {
 
 // grider exercise
 it("shows a comment list", () => {
-  const wrapped = shallow(<App />);
+  // const wrapped = shallow(<App />);
   expect(wrapped.find(CommentList).length).toEqual(1);
 });
