@@ -21,14 +21,30 @@ it("has a text area and a button", () => {
   //afterEach cb to unmount
 });
 
-/*
-Getting an Empty ReactWrapper in your console.log?
-Due to a change in Jest / Enzyme, 
-when adding the console.log to the CommentBox.test.js file 
-in the next lecture you will likely be getting an 
-empty ReactWrapper {} in your terminal. 
+it("has a text area that users can type in", () => {
+  // SIMULATING EVENTS
+  // https://airbnb.io/enzyme/docs/api/ReactWrapper/simulate.html
+  // 1. find the textarea element
+  // 2. simulate a 'change' event
+  // 3. provide a fake event object
+  // 4. force the component to update
+  // 5. assert that the textareas value has changed
 
-Instead, we can run this command to print out the length:
+  wrapped.find("textarea").simulate("change", {
+    target: { value: "new comment" }
+  });
 
-console.log(wrapped.find("textarea").length);
-*/
+  // setState does not cause instant re-render...it's asynchronous...
+  // we have to wait for the re-render to kick in...
+  // enzyme lets us to force an update via update();
+  // https://airbnb.io/enzyme/docs/api/ReactWrapper/update.html
+  wrapped.update();
+
+  // https://airbnb.io/enzyme/docs/api/ReactWrapper/prop.html
+  // example
+
+  // const wrapper = mount(<MyComponent foo={10} />);
+  // expect(wrapper.prop('foo')).to.equal(10);
+  // <textarea onChange={this.handleChange} value="new comment" />
+  expect(wrapped.find("textarea").prop("value")).toEqual("new comment"); //toBe also works
+});
