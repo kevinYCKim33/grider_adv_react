@@ -3,11 +3,15 @@ import { Provider } from "react-redux"; //
 import { createStore } from "redux";
 import reducers from "reducers"; // when importing directory, by default it imports index.js
 
-export default props => {
+// initialState, before was just createStore(reducers, {})
+// but...for testing purposes added initialState as a prop to Root
+export default ({ children, initialState = {} }) => {
   return (
-    <Provider store={createStore(reducers, {})}>{props.children}</Provider>
+    <Provider store={createStore(reducers, initialState)}>{children}</Provider>
   );
 };
+
+// props.initialState used for CommentList.test.js...feels a bit off changing main app just for testing purposes
 
 // anytime we create an instance
 // props.children...react construct...
