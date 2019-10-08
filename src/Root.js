@@ -1,7 +1,9 @@
 import React from "react";
 import { Provider } from "react-redux"; //
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import reduxPromise from "redux-promise";
 import reducers from "reducers"; // when importing directory, by default it imports index.js
+// npm install --save axios redux-promise moxios
 
 // initialState, before was just createStore(reducers, {})
 // but...for testing purposes added initialState as a prop to Root
