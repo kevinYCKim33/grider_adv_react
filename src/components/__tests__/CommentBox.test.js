@@ -1,11 +1,31 @@
 import React from "react";
 import { mount } from "enzyme";
 import CommentBox from "components/CommentBox";
+import Root from "Root"; // The Provider and connect and redux and all that middleware good stuff that render props
+
+// doesn't scale that well...i.e. what if we add middleware to redux??
+// import { createStore } from "redux";
+// import { Provider } from "react-redux";
+// import reducers from "reducers";
 
 let wrapped;
 
+// not very scaleable
+// beforeEach(() => {
+//   wrapped = mount(
+//     <Provider store={createStore(reducers, {})}>
+//       <CommentBox />
+//     </Provider>
+//   );
+// });
+
+// full render
 beforeEach(() => {
-  wrapped = mount(<CommentBox />);
+  wrapped = mount(
+    <Root>
+      <CommentBox />
+    </Root>
+  );
 });
 
 // unmount for cleanup purposes!! since doing full DOM
@@ -27,7 +47,7 @@ describe("the text area", () => {
     wrapped.find("textarea").simulate("change", {
       target: { value: "new comment" }
     });
-    wrapped.update();
+    wrapped.update(); // force update...react setState is async...
   });
 
   it("has a text area that users can type in", () => {
