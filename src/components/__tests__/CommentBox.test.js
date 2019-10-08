@@ -34,10 +34,10 @@ afterEach(() => {
 });
 
 // grider: doing full dom rendering even though he thinks shallow would make more sense...just for variety
-it("has a text area and a button", () => {
+it("has a text area and two buttons", () => {
   //beforeEach cb to mount
   expect(wrapped.find("textarea").length).toEqual(1);
-  expect(wrapped.find("button").length).toEqual(1);
+  expect(wrapped.find("button").length).toEqual(2); // changed to have fetchButtons
   //afterEach cb to unmount
 });
 
