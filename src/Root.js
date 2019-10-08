@@ -8,10 +8,15 @@ import reducers from "reducers"; // when importing directory, by default it impo
 // initialState, before was just createStore(reducers, {})
 // but...for testing purposes added initialState as a prop to Root
 export default ({ children, initialState = {} }) => {
-  return (
-    <Provider store={createStore(reducers, initialState)}>{children}</Provider>
+  const store = createStore(
+    reducers,
+    initialState,
+    applyMiddleware(reduxPromise)
   );
+  return <Provider store={store}>{children}</Provider>;
 };
+
+// taught redux to handle asynchronous action creators...
 
 // props.initialState used for CommentList.test.js...feels a bit off changing main app just for testing purposes
 
