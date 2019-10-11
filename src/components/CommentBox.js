@@ -30,13 +30,16 @@ class CommentBox extends Component {
             <button>Submit Comment</button>
           </div>
         </form>
-        <button onClick={this.props.fetchComments}>Fetch Comments</button>
+        <button className="fetch-comments" onClick={this.props.fetchComments}>
+          Fetch Comments
+        </button>
       </div>
     );
   }
 }
 
+// connect(mapStateToProps, mapDispatchToProps)(CommentBox)
 export default connect(
   null,
-  actions
+  actions // both saveComment() and fetchComments() get added here
 )(CommentBox);
